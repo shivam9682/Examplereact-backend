@@ -13,7 +13,7 @@ import in.sp.spring.service.OtpService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class ForgotPasswordController {
 
     @Autowired

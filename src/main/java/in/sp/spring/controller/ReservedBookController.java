@@ -20,7 +20,7 @@ import in.sp.spring.repository.ReservedBookRepository;
 
 @RestController
 @RequestMapping("/api/reserved-books")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class ReservedBookController {
 
     @Autowired

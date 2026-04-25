@@ -25,8 +25,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:5173")
+<<<<<<< HEAD
 
     @CrossOrigin(origins = "*")
+=======
+@CrossOrigin(origins = "*")
+>>>>>>> 1331dab (message)
 public class AuthController {
 
     @Autowired

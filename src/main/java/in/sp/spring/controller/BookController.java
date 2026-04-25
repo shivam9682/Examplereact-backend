@@ -27,7 +27,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/books")
 public class BookController {
 

@@ -70,7 +70,7 @@ public class AuthController {
         if (photo != null && !photo.isEmpty()) {
             String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
 
-          Path uploadPath = Paths.get(System.getProperty("java.io.tmpdir"), "uploads");
+          Path uploadPath =Paths.get("uploads");
 
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);

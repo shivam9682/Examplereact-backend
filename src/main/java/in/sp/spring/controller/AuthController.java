@@ -29,7 +29,7 @@ import java.util.Optional;
     
 
 @CrossOrigin(origins = "*")
->>>>>>> 732a26b (Fixed email async issue and registration bug)
+
 
 public class AuthController {
 

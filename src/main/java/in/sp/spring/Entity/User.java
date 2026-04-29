@@ -19,7 +19,7 @@ public class User {
     private String studentClass;
     private String gender;
 
-    @Column(unique = true)
+    
     private String address;
     private String password;
      //Add new 

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import in.sp.spring.Entity.BookHistory;
 import in.sp.spring.Entity.ReservedBook;
 import in.sp.spring.Entity.User;
@@ -24,7 +27,9 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -49,6 +54,9 @@ public class BookController {
     @Autowired
     private NotificationService notificationService;
 
+     
+    @Autowired
+    private Cloudinary cloudinary;
     @GetMapping
     public List<book> getBooks() {
         return service.getAllBooks();
@@ -94,55 +102,38 @@ public class BookController {
             b.setAvailableQuantity(totalQuantity);
             b.setReservedQuantity(0);
 
-            String uploadDir = System.getProperty("user.dir") + "/uploads/";
-            File dir = new File(uploadDir);
-
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            // Main Image Upload
             if (file != null && !file.isEmpty()) {
 
-                String fileName = System.currentTimeMillis() + "_" +
-                        file.getOriginalFilename().replaceAll(" ", "_");
-
-                Path filePath = Paths.get(uploadDir, fileName);
-
-                Files.copy(
-                        file.getInputStream(),
-                        filePath,
-                        StandardCopyOption.REPLACE_EXISTING
+                Map uploadResult = cloudinary.uploader().upload(
+                        file.getBytes(),
+                        ObjectUtils.emptyMap()
                 );
 
-                b.setImagePath(fileName);
+                String imageUrl = uploadResult.get("secure_url").toString();
+                b.setImagePath(imageUrl);
             }
+            
 
             // Multiple Preview Images Upload
             if (previewImages != null && previewImages.length > 0) {
 
-                List<String> previewImageNames = new java.util.ArrayList<>();
+                List<String> previewUrls = new ArrayList<>();
 
                 for (MultipartFile previewFile : previewImages) {
 
                     if (previewFile != null && !previewFile.isEmpty()) {
 
-                        String previewFileName = System.currentTimeMillis() + "_" +
-                                previewFile.getOriginalFilename().replaceAll(" ", "_");
-
-                        Path previewFilePath = Paths.get(uploadDir, previewFileName);
-
-                        Files.copy(
-                                previewFile.getInputStream(),
-                                previewFilePath,
-                                StandardCopyOption.REPLACE_EXISTING
+                        Map uploadResult = cloudinary.uploader().upload(
+                                previewFile.getBytes(),
+                                ObjectUtils.emptyMap()
                         );
 
-                        previewImageNames.add(previewFileName);
+                        String url = uploadResult.get("secure_url").toString();
+                        previewUrls.add(url);
                     }
                 }
 
-                b.setPreviewImages(String.join(",", previewImageNames));
+                b.setPreviewImages(String.join(",", previewUrls));
             }
 
             return service.saveBook(b);

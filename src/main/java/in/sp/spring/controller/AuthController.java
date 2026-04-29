@@ -25,9 +25,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:5173")
+<<<<<<< HEAD
 
 
     @CrossOrigin(origins = "*")
+=======
+
+
+    
+
+@CrossOrigin(origins = "*")
+>>>>>>> 732a26b (Fixed email async issue and registration bug)
 
 public class AuthController {
 

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import in.sp.spring.Entity.ContactMessage;
+import in.sp.spring.repository.ContactRepository;
 import in.sp.spring.service.ContactService;
 
 @RestController
@@ -15,6 +16,9 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
+    @Autowired
+    private ContactRepository contactRepository;
+
     @PostMapping
     public ResponseEntity<?> saveContact(@RequestBody ContactMessage contactMessage) {
 
@@ -23,9 +27,12 @@ public class ContactController {
 
         return ResponseEntity.ok(savedMessage);
     }
-    @GetMapping("/count") 
+
+    @GetMapping("/count")
     public ResponseEntity<Long> getNotificationCount() {
-        long count = contactRepository.count(); 
+
+        long count = contactRepository.count();
+
         return ResponseEntity.ok(count);
     }
 }

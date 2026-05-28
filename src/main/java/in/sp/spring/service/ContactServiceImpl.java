@@ -17,4 +17,9 @@ public class ContactServiceImpl implements ContactService {
     public ContactMessage saveMessage(ContactMessage contactMessage) {
         return contactRepository.save(contactMessage);
     }
+    
+    @Override
+    public long getMessageCount() {
+        return contactRepository.count();
+    }
 }

@@ -25,13 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:5173")
-<<<<<<< HEAD
 
-    
-
-@CrossOrigin(origins = "*")
-
-=======
 
 
 
@@ -41,7 +35,7 @@ import java.util.Optional;
 
     
 
->>>>>>> 6fb9782 (project updated)
+
 
 public class AuthController {
 

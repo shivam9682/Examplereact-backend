@@ -23,4 +23,9 @@ public class ContactController {
 
         return ResponseEntity.ok(savedMessage);
     }
+    @GetMapping("/count") 
+    public ResponseEntity<Long> getNotificationCount() {
+        long count = contactRepository.count(); 
+        return ResponseEntity.ok(count);
+    }
 }

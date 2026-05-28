@@ -6,4 +6,5 @@ public interface ContactService {
 
     ContactMessage saveMessage(ContactMessage contactMessage);
     long getMessageCount();
+    List<ContactMessage> getAllMessages();
 }

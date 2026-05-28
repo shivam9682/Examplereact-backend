@@ -34,5 +34,13 @@ public class ContactController {
         long count = contactRepository.count();
 
         return ResponseEntity.ok(count);
-    }
+    } 
+@GetMapping
+public ResponseEntity<List<ContactMessage>> getAllMessages() {
+
+    List<ContactMessage> messages =
+            contactRepository.findAll();
+
+    return ResponseEntity.ok(messages);
+}
 }

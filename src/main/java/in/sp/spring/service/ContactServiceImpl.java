@@ -22,4 +22,7 @@ public class ContactServiceImpl implements ContactService {
     public long getMessageCount() {
         return contactRepository.count();
     }
+    @Override public List<ContactMessage> getAllMessages() {
+        return contactRepository.findAll();
+    }
 }

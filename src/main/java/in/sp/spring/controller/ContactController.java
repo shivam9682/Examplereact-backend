@@ -66,7 +66,7 @@ public class ContactController {
                 contactRepository.findAll();
 
         for (ContactMessage msg : messages) {
-            msg.setRead(true);
+           msg.setIsRead(true);
         }
 
         contactRepository.saveAll(messages);

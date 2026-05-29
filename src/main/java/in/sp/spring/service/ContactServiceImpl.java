@@ -3,7 +3,7 @@ package in.sp.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import in.sp.spring.Entity.ContactMessage;
 import in.sp.spring.repository.ContactRepository;
 

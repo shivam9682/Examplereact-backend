@@ -17,8 +17,18 @@ public class ContactMessage {
     private String email;
     @Column
     private String subject;
+    @Column
+    private boolean isRead = false;
 
-    @Column(columnDefinition = "TEXT")
+    public boolean isRead() {
+		return isRead;
+	}
+
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
+
+	@Column(columnDefinition = "TEXT")
     private String message;
 
 	public Long getId() {

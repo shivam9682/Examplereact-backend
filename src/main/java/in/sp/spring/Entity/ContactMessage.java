@@ -17,16 +17,16 @@ public class ContactMessage {
     private String email;
     @Column
     private String subject;
-    @Column
-    private boolean isRead = false;
+    @Column(name = "is_read")
+private Boolean isRead = false;
 
-    public boolean isRead() {
-		return isRead;
-	}
+public Boolean getIsRead() {
+    return isRead;
+}
 
-	public void setRead(boolean isRead) {
-		this.isRead = isRead;
-	}
+public void setRead(Boolean isRead) {
+    this.isRead = isRead;
+}
 
 	@Column(columnDefinition = "TEXT")
     private String message;

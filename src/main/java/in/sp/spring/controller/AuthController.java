@@ -25,7 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:5173")
-<<<<<<< HEAD
+
 
 
 
@@ -35,19 +35,6 @@ import java.util.Optional;
 
 
     
-
-
-
-=======
-
-
-    
-
-@CrossOrigin(origins = "*")
-
-
-
->>>>>>> 098ecfa (Fixed List imports)
 public class AuthController {
 
     @Autowired

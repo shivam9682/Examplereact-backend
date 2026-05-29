@@ -19,14 +19,16 @@ public class ContactController {
     @Autowired
     private ContactRepository contactRepository;
 
-    @PostMapping
-    public ResponseEntity<?> saveContact(@RequestBody ContactMessage contactMessage) {
-
-        ContactMessage savedMessage =
-                contactService.saveMessage(contactMessage);
-
-        return ResponseEntity.ok(savedMessage);
+    @GetMapping
+public ResponseEntity<?> getAllMessages() {
+    try {
+        List<ContactMessage> messages = contactRepository.findAll();
+        return ResponseEntity.ok(messages);
+    } catch (Exception e) {
+        return ResponseEntity.status(500)
+                .body(e.toString());
     }
+}
 
     @GetMapping("/count")
     public ResponseEntity<Long> getNotificationCount() {

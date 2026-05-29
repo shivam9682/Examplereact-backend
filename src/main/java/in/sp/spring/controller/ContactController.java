@@ -43,4 +43,8 @@ public ResponseEntity<List<ContactMessage>> getAllMessages() {
 
     return ResponseEntity.ok(messages);
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 098ecfa (Fixed List imports)

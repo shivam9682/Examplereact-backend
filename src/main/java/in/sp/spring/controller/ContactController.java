@@ -1,9 +1,11 @@
 package in.sp.spring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import in.sp.spring.Entity.ContactMessage;
 import in.sp.spring.repository.ContactRepository;
 import in.sp.spring.service.ContactService;
@@ -19,17 +21,35 @@ public class ContactController {
     @Autowired
     private ContactRepository contactRepository;
 
-    @GetMapping
-public ResponseEntity<?> getAllMessages() {
-    try {
-        List<ContactMessage> messages = contactRepository.findAll();
-        return ResponseEntity.ok(messages);
-    } catch (Exception e) {
-        return ResponseEntity.status(500)
-                .body(e.toString());
-    }
-}
+    // Save Contact Form
+    @PostMapping
+    public ResponseEntity<?> saveContact(
+            @RequestBody ContactMessage contactMessage) {
 
+        ContactMessage savedMessage =
+                contactService.saveMessage(contactMessage);
+
+        return ResponseEntity.ok(savedMessage);
+    }
+
+    // Get All Messages
+    @GetMapping
+    public ResponseEntity<?> getAllMessages() {
+
+        try {
+            List<ContactMessage> messages =
+                    contactRepository.findAll();
+
+            return ResponseEntity.ok(messages);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.internalServerError()
+                    .body("Error: " + e.getMessage());
+        }
+    }
+
+    // Unread Notification Count
     @GetMapping("/count")
     public ResponseEntity<Long> getNotificationCount() {
 
@@ -37,27 +57,21 @@ public ResponseEntity<?> getAllMessages() {
 
         return ResponseEntity.ok(count);
     }
-@GetMapping
-public ResponseEntity<List<ContactMessage>> getAllMessages() {
 
-    List<ContactMessage> messages =
-            contactRepository.findAll();
+    // Mark All Notifications Read
+    @PutMapping("/read-all")
+    public ResponseEntity<String> markAllRead() {
 
-    return ResponseEntity.ok(messages);
-}
+        List<ContactMessage> messages =
+                contactRepository.findAll();
 
-@PutMapping("/read-all")
-public ResponseEntity<String> markAllRead() {
+        for (ContactMessage msg : messages) {
+            msg.setRead(true);
+        }
 
-    List<ContactMessage> messages =
-            contactRepository.findAll();
+        contactRepository.saveAll(messages);
 
-    for (ContactMessage msg : messages) {
-        msg.setRead(true);
+        return ResponseEntity.ok(
+                "All notifications marked as read");
     }
-
-    contactRepository.saveAll(messages);
-
-    return ResponseEntity.ok("All notifications marked as read");
-}
 }

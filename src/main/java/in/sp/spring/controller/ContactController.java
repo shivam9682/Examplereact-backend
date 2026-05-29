@@ -31,10 +31,10 @@ public class ContactController {
     @GetMapping("/count")
     public ResponseEntity<Long> getNotificationCount() {
 
-        long count = contactRepository.count();
+        long count = contactRepository.countByIsReadFalse();
 
         return ResponseEntity.ok(count);
-    } 
+    }
 @GetMapping
 public ResponseEntity<List<ContactMessage>> getAllMessages() {
 
@@ -43,8 +43,19 @@ public ResponseEntity<List<ContactMessage>> getAllMessages() {
 
     return ResponseEntity.ok(messages);
 }
-<<<<<<< HEAD
+
+@PutMapping("/read-all")
+public ResponseEntity<String> markAllRead() {
+
+    List<ContactMessage> messages =
+            contactRepository.findAll();
+
+    for (ContactMessage msg : messages) {
+        msg.setRead(true);
+    }
+
+    contactRepository.saveAll(messages);
+
+    return ResponseEntity.ok("All notifications marked as read");
 }
-=======
 }
->>>>>>> 098ecfa (Fixed List imports)
